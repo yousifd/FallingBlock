@@ -8,20 +8,25 @@ public class Maze : MonoBehaviour {
     private Vector2[,] anchorPoints; // Anchor Panels to points within maze
 
 	void Start () {
+        Panel.parent = gameObject;
         panels = new List<Panel>();
         anchorPoints = new Vector2[10, 10];
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
                 anchorPoints[i, j] = new Vector2(i, j);
-                Panel panel = gameObject.AddComponent<Panel>() as Panel;
-                panel.transform.position = anchorPoints[i, j];
-                panels.Add(Instantiate(panel));
+                Panel panel = new HideOnTrigger(anchorPoints[i, j]);
+                panel.Transform(anchorPoints[i, j]);
+                panels.Add(panel);
             }
         }
     }
 
     void Update () {
 
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Detected Collision!");
     }
 
     void OnDrawGizmos () {
