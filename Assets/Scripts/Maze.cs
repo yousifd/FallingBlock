@@ -19,6 +19,7 @@ public class Maze : MonoBehaviour {
                 Panel panel = new Panel(pos);
                 panel.Transform(pos);
                 panels.Add(panel);
+                // TESTING GIT
             }
         }
     }
