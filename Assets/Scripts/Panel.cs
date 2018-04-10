@@ -10,17 +10,25 @@ public class Panel {
     private MeshFilter meshFilter;
     private EventForwarder forwarder;
     static public GameObject parent;
+    public enum TYPES {PANEL, HIDDEN, GRAVITY/*, DEATH, ONEDIRECTION, MOVING, LAZER*/};
 
 	public Panel () {
         Init("Panel");
     }
 
-	public Panel (string name) {
+	public Panel (string name, bool vertical) {
         Init(name);
-	}
+        if (vertical) {
+            Rotate(90);
+        }
+    }
 
-    public Panel(Vector2 pos) {
+    public Panel(Vector2 pos, bool vertical) {
         Init("Panel: " + pos);
+        Transform(pos);
+        if(vertical) {
+            Rotate(90);
+        }
     }
 
     protected virtual void HandleTriggerEnter(Collider2D collider) {
@@ -37,12 +45,12 @@ public class Panel {
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         meshFilter.mesh = cube.GetComponent<MeshFilter>().mesh;
         meshRend = gameObject.AddComponent<MeshRenderer>() as MeshRenderer;
-        meshRend.material = cube.GetComponent<MeshRenderer>().sharedMaterial;
+        meshRend.material = cube.GetComponent<MeshRenderer>().material;
 
         boxCollider = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
 
         // Adjust Dimensions of Object
-        gameObject.transform.localScale = new Vector2(Constants.PANELHIGHT, Constants.PANELWIDTH);
+        gameObject.transform.localScale = new Vector3(Constants.PANELHIGHT, Constants.PANELWIDTH, 1);
 
         // Event Forwarder Used to Forward events to non-Monobehaviour Objects
         forwarder = gameObject.AddComponent<EventForwarder>();
@@ -51,8 +59,16 @@ public class Panel {
         UnityEngine.GameObject.Destroy(cube);
     }
 
-    public void Transform(Vector2 vec) {
+    protected void Transform(Vector2 vec) {
         gameObject.transform.position = vec;
+    }
+
+    protected void Rotate(float deg) {
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, deg);
+    }
+
+    protected void Color(Color color) {
+        meshRend.material.color = color;
     }
 
     protected void SetTrigger() {
@@ -61,5 +77,6 @@ public class Panel {
 
     protected void DestroySelf() {
         UnityEngine.GameObject.Destroy(gameObject);
+        boxCollider.isTrigger = false;
     }
 }

@@ -7,6 +7,5 @@ public class Constants {
     public static float NEGDEFAULTGRAVITY = -1.0f * DEFAULTGRAVITY;
 
     public static float PANELWIDTH = .1f;
-    public static float PANELHIGHT = 1.1f;
-
+    public static float PANELHIGHT = 1.05f;
 }

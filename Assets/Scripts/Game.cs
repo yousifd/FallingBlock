@@ -19,7 +19,7 @@ public class Game : MonoBehaviour {
         gravCont = gameObject.AddComponent<GravityController>();
 
         // Generate a Maze
-        maze = gameObject.AddComponent<Maze>() as Maze;
+        maze = gameObject.AddComponent<Maze>();
 	}
 	
 	// Update is called once per frame
