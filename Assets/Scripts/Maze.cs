@@ -10,11 +10,7 @@ public class Maze : MonoBehaviour {
     private List<Panel> panels; // Array of Maze Panels
     private Vector2[,] anchorPoints; // Anchor Panels to points within maze
 
-    // TODO: Spwan Point
-    // TODO: Set Spwan Point
-    // TODO: Spwan Player on Spawn Point
-
-	void Start () {
+	void Awake () {
         Panel.parent = gameObject;
         panels = new List<Panel>();
         anchorPoints = new Vector2[GRIDX, GRIDY];
@@ -22,14 +18,20 @@ public class Maze : MonoBehaviour {
             for(int j = 0; j < GRIDY; j++) {
                 anchorPoints[i, j] = new Vector2(i, j);
 
-                Panel panelH = GenerateHorizontal(anchorPoints[i, j]);
-                Panel panelV = GenerateVertical(anchorPoints[i, j]);
+                /*Panel panelH = */GenerateHorizontal(anchorPoints[i, j]);
+                /*Panel panelV = */GenerateVertical(anchorPoints[i, j]);
             }
         }
     }
 
     void Update() {
         // TODO: Dynamically Expand
+    }
+
+    // Returns center of Maze
+    public Vector2 GetCenter() {
+        // TODO: Make Dynamic
+        return anchorPoints[GRIDX/2, GRIDY/2];
     }
 
     Panel GenerateHorizontal (Vector2 pos) {

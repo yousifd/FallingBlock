@@ -4,6 +4,9 @@ using System.Collections;
 
 public class Panel {
 
+    private static float PANELWIDTH = .1f;
+    private static float PANELHIGHT = 1.05f;
+
     private GameObject gameObject;
     private MeshRenderer meshRend;
     private BoxCollider2D boxCollider;
@@ -50,7 +53,7 @@ public class Panel {
         boxCollider = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
 
         // Adjust Dimensions of Object
-        gameObject.transform.localScale = new Vector3(Constants.PANELHIGHT, Constants.PANELWIDTH, 1);
+        gameObject.transform.localScale = new Vector3(PANELHIGHT, PANELWIDTH, 1);
 
         // Event Forwarder Used to Forward events to non-Monobehaviour Objects
         forwarder = gameObject.AddComponent<EventForwarder>();

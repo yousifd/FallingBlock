@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Game : MonoBehaviour {
 
-	public float transitionLock = 0.1f;
+	static public float transitionLock = 0.5f;
 
 	private float elapsedTime;
     private PhysicsManager physMan;
-    private GravityController gravCont;
+    //private GravityController gravCont;
+    private Player player;
     private Maze maze;
 
 	// Use this for initialization
@@ -16,16 +17,23 @@ public class Game : MonoBehaviour {
 		elapsedTime = transitionLock; // Initialize elapsed time to transitionLock to allow for fast first move
         physMan = gameObject.AddComponent<PhysicsManager>(); // Map PhysicsManager to physMan
 
-        gravCont = gameObject.AddComponent<GravityController>();
+        /*gravCont = */gameObject.AddComponent<GravityController>();
 
         // Generate a Maze
         maze = gameObject.AddComponent<Maze>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		elapsedTime += Time.deltaTime; // Update elapsed time 
+
+        // Create Player and Spawn in Center of Maze
+        Vector2 mazeCenter = maze.GetCenter();
+        player = new Player(mazeCenter);
+
+        Camera.main.GetComponent<CameraControl>().SetPlayer(player);
+    }
+
+    // Update is called once per frame
+    void Update () {
+		elapsedTime += Time.deltaTime; // Update elapsed time
 		if (elapsedTime >= transitionLock) {
+            // TODO: Use a Controller
 			if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
 			{
                 physMan.right(); // Switch Gravity to the Right of current direction

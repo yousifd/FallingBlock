@@ -4,15 +4,15 @@ using System.Collections;
 public class CameraControl : MonoBehaviour {
 
     public float speed = 0.005f;
-    public GameObject player;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+    private Player player;
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(player == null) {
+            return;
+        }
+
         float x = Physics2D.gravity.x, y = Physics2D.gravity.y;
         if (y < 0) {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.time * speed);
@@ -32,9 +32,13 @@ public class CameraControl : MonoBehaviour {
         }
 
         Vector3 currentPosition = transform.position,
-        playerPosition = player.transform.position,
+        playerPosition = player.gameObject.transform.position,
         destination = new Vector3(playerPosition.x, playerPosition.y, currentPosition.z),
         velocity = Vector3.zero;
         transform.position = Vector3.SmoothDamp(currentPosition, destination, ref velocity, speed);
+    }
+
+    public void SetPlayer(Player p) {
+        player = p;
     }
 }
