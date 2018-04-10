@@ -19,9 +19,9 @@ public class Panel {
         Init(name);
 	}
 
-    //public Panel (Panel panel) {
-    //    gameObject = UnityEngine.GameObject.Instantiate(panel.gameObject);
-    //}
+    public Panel(Vector2 pos) {
+        Init("Panel: " + pos);
+    }
 
     protected virtual void HandleTriggerEnter(Collider2D collider) {
         forwarder.OnTriggerEnter2DEvent -= HandleTriggerEnter;
@@ -39,10 +39,10 @@ public class Panel {
         meshRend = gameObject.AddComponent<MeshRenderer>() as MeshRenderer;
         meshRend.material = cube.GetComponent<MeshRenderer>().sharedMaterial;
 
+        boxCollider = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
+
         // Adjust Dimensions of Object
         gameObject.transform.localScale = new Vector2(Constants.PANELHIGHT, Constants.PANELWIDTH);
-
-        boxCollider = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
 
         // Event Forwarder Used to Forward events to non-Monobehaviour Objects
         forwarder = gameObject.AddComponent<EventForwarder>();
@@ -55,19 +55,11 @@ public class Panel {
         gameObject.transform.position = vec;
     }
 
-    public void SetTrigger() {
+    protected void SetTrigger() {
         boxCollider.isTrigger = true;
     }
 
-    public void DestroySelf() {
+    protected void DestroySelf() {
         UnityEngine.GameObject.Destroy(gameObject);
-        //UnityEngine.GameObject.Destroy(meshRend);
-        //UnityEngine.GameObject.Destroy(boxCollider);
-        //UnityEngine.GameObject.Destroy(meshFilter);
     }
-
-    //static public Panel Copy(Panel panel) {
-    //    return new Panel(panel);
-    //}
-
 }

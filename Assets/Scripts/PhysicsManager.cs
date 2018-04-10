@@ -3,16 +3,6 @@ using System.Collections;
 
 public class PhysicsManager : MonoBehaviour {
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public void left() {
         float x = Physics2D.gravity.x, y = Physics2D.gravity.y;
         float newX = x, newY = y;

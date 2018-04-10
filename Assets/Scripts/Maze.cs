@@ -14,8 +14,10 @@ public class Maze : MonoBehaviour {
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
                 anchorPoints[i, j] = new Vector2(i, j);
-                Panel panel = new HideOnTrigger(anchorPoints[i, j]);
-                panel.Transform(anchorPoints[i, j]);
+                Vector2 pos = anchorPoints[i, j];
+                pos.x -= 0.5f;
+                Panel panel = new Panel(pos);
+                panel.Transform(pos);
                 panels.Add(panel);
             }
         }

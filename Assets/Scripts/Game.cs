@@ -7,13 +7,16 @@ public class Game : MonoBehaviour {
 
 	private float elapsedTime;
     private PhysicsManager physMan;
+    private GravityController gravCont;
     private Maze maze;
 
 	// Use this for initialization
 	void Start () {
         Physics2D.gravity = new Vector2(0.0f, Constants.NEGDEFAULTGRAVITY); // Initialize Gravity to Downwards
 		elapsedTime = transitionLock; // Initialize elapsed time to transitionLock to allow for fast first move
-        physMan = gameObject.AddComponent<PhysicsManager>() as PhysicsManager; // Map PhysicsManager to physMan
+        physMan = gameObject.AddComponent<PhysicsManager>(); // Map PhysicsManager to physMan
+
+        gravCont = gameObject.AddComponent<GravityController>();
 
         // Generate a Maze
         maze = gameObject.AddComponent<Maze>() as Maze;
